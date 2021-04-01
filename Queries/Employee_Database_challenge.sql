@@ -26,6 +26,7 @@ SELECT DISTINCT ON (emp_no)
 INTO unique_titles
 FROM
 	retirement_titles
+-- 	WHERE to_date = '9999-01-01'
 ORDER BY emp_no ASC, 
 		to_date DESC;
 
@@ -63,5 +64,53 @@ WHERE
 	AND
 	(de.to_date = '9999-01-01')
 ORDER BY e.emp_no;
+
+
+
+
+-- Deliverable 3: additional analysis
+-- Create table of employees with status column
+SELECT DISTINCT ON (e.emp_no)
+	e.emp_no,
+	tt.title,
+	tt.to_date as hold_title_to_date,
+	e.birth_date,
+	de.to_date as work_to_date,
+	CASE
+		WHEN (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31') THEN 'Eligibile for mentorship'
+		WHEN (e.birth_date BETWEEN '1952-01-01' AND '1955-12-31') THEN 'Retiring soon'
+		ELSE 'Not affected'
+	END status
+INTO eligibility_status
+FROM
+	employees as e
+	INNER JOIN
+		dept_emp as de
+		ON de.emp_no = e.emp_no
+	INNER JOIN
+		titles as tt
+		ON tt.emp_no = e.emp_no
+WHERE de.to_date = '9999-01-01'
+ORDER BY 
+	e.emp_no, tt.to_date DESC;
+
+-- Get status by title
+SELECT
+	COUNT(emp_no),
+	title,
+	status
+FROM
+	eligibility_status
+GROUP BY
+	title,
+	status
+ORDER BY
+	title,
+	COUNT(emp_no);
+
+
+
+
+
 
 
