@@ -1,28 +1,32 @@
 # Analysis of Pewlett Hackard
 ## Overview of the analysis
-I was given 6 .csv files with data related to employees of Pewlett Hackard company. The goal was to create relational database and conduct the analysis of retiring employees.
+I was given 6 CSV files with data related to employees of Pewlett Hackard company. The goal was to create relational database and conduct the analysis of retiring employees.
+
 To complete the project I’ve used pgAdmin 4.
+
+
 
 ## Results
 I've created physical ERD using QuickDBD. Based on it I've uploaded CSV file to pdAdmin and created database of employees.
 ![](https://github.com/angkohtenko/Pewlett-Hackard-Analysis/blob/main/EmployeeDB.png)
 
-I wrote SQL queries to retrieve data of current employees, managers, employees who are retiring soon, their titles, and saved all of that to csv tables in [Data folder](https://github.com/angkohtenko/Pewlett-Hackard-Analysis/tree/main/Data).
+I wrote SQL queries to retrieve data of current employees, managers, employees who are retiring soon and saved all of that to CSV tables in [Data folder](https://github.com/angkohtenko/Pewlett-Hackard-Analysis/tree/main/Data).
 
 Then I conducted analysis of [retiring employees by title](https://github.com/angkohtenko/Pewlett-Hackard-Analysis/blob/main/Data/retiring_titles.csv) and revealed that the majority of retiring employees have senior position.
 
-During the analysis I revealed:
+During the analysis I've got few insights:
 - Some employees have switched titles over the years that caused duplicate values:
 
 ![](https://github.com/angkohtenko/Pewlett-Hackard-Analysis/blob/main/duplicate_values.png)
 
 - 90,398 employees will retire soon.
 
-- The majority of retiring employees have senior position:
+- The majority of retiring employees has senior position:
 
 ![](https://github.com/angkohtenko/Pewlett-Hackard-Analysis/blob/main/Retiring_employees_by_title.png)
 
 - 1,549 employees are eligible for mentorship program.
+
 
 
 ## Summary
@@ -56,7 +60,7 @@ However, I noticed that number of retiring employees in this table is less than 
 ```
 WHERE to_date = '9999-01-01'
 ```
-So I created a new table that has all current employees with status column:
+To continue analysis I created a new table that has all current employees with status column:
 ```
 SELECT DISTINCT ON (e.emp_no)
 	e.emp_no,
